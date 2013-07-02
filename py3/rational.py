@@ -133,7 +133,8 @@ class rat:
 
     def __neg__(self):
         return rat(-self.num, self.den, False)
-
+    def __pos__(self):
+        return self
     def __rsub__(self,v):
         "v - rat"
         if isinstance(v, int) or isinstance(v, int):
