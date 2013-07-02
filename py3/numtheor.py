@@ -134,33 +134,29 @@ def mrange(begins, ends=None, steps=None):
     for x in mrange_rec(bes):
         yield x
                 
-def _mrange_test():
-    for a,b,c in mrange((2,2,2)):
-        print ("%s, %s, %s"%(a,b,c))
-#mrange_test()
-
 
 def prod(l):
     "Product of all items in list"
-    if len(l)==0:
-        return 1
-    p=l[0]
-    for x in l[1:]:
-        p=p*x
+    p = 1
+    for x in l:
+        p *= x
     return p
 
 def alldivs(x):
     "generates all divisors of x, including 1 and the number itself"
-    decomp=tuple(grp(pfac(x)))
-    
+    if x == 1:
+        yield 1
+        return
+
+    decomp=tuple(grp(pfac(x)))    
     #enumerate all powers
-    P=[p_e[0] for p_e in decomp]
+    P=[p for p,e in decomp]
     
     for pows in mrange([p_e[1]+1 for p_e in decomp]):
         yield prod([p**e for p,e in zip(P, pows) ])
 
 def sumdivs(x):
-    "Sum of all divisors of x, except x itself (but including x)"
+    "Sum of all divisors of x, except x itself (but including 1)"
     return sum(alldivs(x))-x #simple way is better. it does not slows down execution a lot
 
 def sqrti(x):

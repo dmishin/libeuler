@@ -61,6 +61,26 @@ class TestDivisors(unittest.TestCase):
         eq( nt.numdivs(6), naive_numdivs(6))
         for x in range(7,100):
             eq( nt.numdivs(x), naive_numdivs(x))
+    def test_alldivs(self):
+        eq = self.assertSetEqual
+        eq( set(nt.alldivs(1)), set([1]))
+        eq( set(nt.alldivs(2)), set([1,2]))
+        eq( set(nt.alldivs(6)), set([1,2,3,6]))
+        eq( set(nt.alldivs(16)), set([1,2,4,8,16]))
+        
+
+    def test_sumdivs(self):
+        "Sum of all divisors of x, except x itself (but including 1)"
+        eq = self.assertEqual
+        eq( nt.sumdivs(1), 0)
+        eq( nt.sumdivs(2), 1)
+        eq( nt.sumdivs(6), 6)
+    def test_prod(self):
+        eq = self.assertEqual
+        eq( nt.prod( [] ), 1 )
+        eq( nt.prod( [1] ), 1 )
+        eq( nt.prod( [1,2,3,4] ), 1*2*3*4 )
+
 
 class TestPrimes(unittest.TestCase):
     def setUp(self):
