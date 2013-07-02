@@ -133,7 +133,16 @@ class TestPrimes(unittest.TestCase):
         ae( nt.pfac(17**3), [17]*3 )
         ae( nt.pfac(6), [2,3])
 
-    
+    def test_phi(self):
+        ae = self.assertEqual
+        def phi_naive(x):
+            n = 0
+            for i in range(1,x+1):
+                if nt.gcd(i, x)==1:
+                    n += 1
+            return n
+        for x in range(1, 100):
+            ae(nt.phi(x), phi_naive(x), "Checking phi for x=%d"%(x))
 
 if __name__=="__main__":
     unittest.main()
