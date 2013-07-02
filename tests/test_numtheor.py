@@ -24,7 +24,29 @@ class TestLists(unittest.TestCase):
         eq( grp(nt.pfac(128*81*121)), [(2,7),(3,4),(11,2)] )
     def test_findfirst(self):
         eq = self.assertEqual
+        lst = [1,2,3,4,5,6,7,8,9]
+        eq( nt.findfirst(lst, lambda x: x>0), 1)
+        eq( nt.findfirst(lst, lambda x: x==9), 9)
+        eq( nt.findfirst(lst, lambda x: x>5), 6)
+        eq( nt.findfirst(lst, lambda x: x>100), None)
+
+class TestMrange(unittest.TestCase):
+    def test_1_arg(self):
+        eq = self.assertEqual
+        def mr1(ends):
+            return list(nt.mrange(ends))
         
+        eq( mr1([1]), [(0,)] )
+        eq( mr1([2]), [(0,), (1,)] )
+        eq( mr1([3]), [(0,), (1,), (2,)] )
+
+        eq( mr1([1,1]), [(0,0)] )
+        eq( mr1([2,2]), [(0,0), (1,0), (0,1), (1,1)] )
+    def test_2_arg(self):
+        eq = self.assertEqual
+        def mr1(ends):
+            return list(nt.mrange(ends))
+
 class TestDivisors(unittest.TestCase):
     def test_numdivs(self):
         eq = self.assertEqual

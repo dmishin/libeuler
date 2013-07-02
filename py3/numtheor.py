@@ -120,7 +120,7 @@ def mrange(begins, ends=None, steps=None):
         
     if len(begins)!=len(ends) or len(ends)!=len(steps):
         raise Exception
-    bes=zip(begins,ends,steps)
+    bes=list(zip(begins,ends,steps))
     
     def mrange_rec(bes):
         if len(bes)==0:
