@@ -1,6 +1,5 @@
 import math
-import itertools
-
+from functools import reduce
 
 def isprime(x):
     "Check, whether the numer is prime. Complexity ~sqrt(p)/2"
@@ -56,7 +55,7 @@ def pfac(x):
         if x<=1:
             return fac
         while x%p==0:
-            x=x/p
+            x=x//p
             fac.append(p)
             
 def pfaci(x):
@@ -186,9 +185,9 @@ def sqrti(x):
     if x<0:
         raise ValueError("Square root of negative value")
     
-    r=(x+1)/2
+    r=(x+1)//2
     def itr(r):
-        return (x/r+r)/2
+        return (x//r+r)//2
         
     while True:
         r1=itr(itr(r))
