@@ -4,7 +4,7 @@ import numtheor
 import math
 
 def float2rat(f, eps = 1e-6, iters = 1000):
-    "Converts float to rational"
+    """Converts float to rational"""
     flr = math.floor(f)
     frac = f-flr
     if eps<=0:
@@ -18,11 +18,7 @@ def float2rat(f, eps = 1e-6, iters = 1000):
     return rat(int(flr))+1/float2rat(ifrac,eps*ifrac*ifrac, iters-1)
 
 def str2rat(s, base=10):
-    "Convert string in a form num/den to a rational. String may be single integer too."
-    
-    if not isinstance(s,str):
-        raise ValueError("Argument must be string")
-    
+    """Convert string in a form num/den to a rational. String may be single integer too."""
     spl = s.split("/")
     if len(spl)==1:
         return rat(int(s, base))
@@ -60,7 +56,6 @@ class rat:
             #invalud value
             if   self.num < 0:
                 self.num = -1
-                
             elif self.num > 0:
                 self.num = 1
                     
@@ -71,11 +66,11 @@ class rat:
             self.den = -self.den
             
         k = numtheor.gcd(self.num, self.den)
-        self.num /= k
-        self.den /= k
+        self.num //= k
+        self.den //= k
     
     def intpart(self):
-        return self.num/self.den
+        return self.num//self.den
     
     def copy(self):
         return rat(self.num, self.den, False)
@@ -91,21 +86,21 @@ class rat:
         return self.__mul__(v)
         
     def __div__(self, v):
-        if isinstance(v, int) or isinstance(v, int):
+        if isinstance(v, int):
             return rat(self.num, self.den*v)
         if isinstance(v, rat):
             return rat(self.num * v.den, self.den*v.num)
         raise ValueError("Wrong type of multipolier")
     
     def __rdiv__(self, v):
-        if isinstance(v, int) or isinstance(v, int):
+        if isinstance(v, int):
             return rat(self.den*v, self.num)
         if isinstance(v, rat):
             return rat(self.den * v.num, self.num*v.den)
         raise ValueError("Wrong type of multipolier")
         
     def __add__(self, v):
-        if isinstance(v, int) or isinstance(v, int):
+        if isinstance(v, int):
             return rat(self.num+v*self.den, self.den)
         if isinstance(v, rat):
             return rat(self.num * v.den + self.den*v.num, self.den*v.den)
@@ -115,7 +110,12 @@ class rat:
 
         
     def __pow__(self, v):
-        return rat(self.num**v, self.den**v, False)
+        if v > 0:
+            return rat(self.num**v, self.den**v, False)
+        elif v < 0:
+            return rat(self.den**(-v), self.num**(-v), False)
+        else:
+            return rat(1)
     
     def __sub__(self,v):
         if isinstance(v, int) or isinstance(v, int):
@@ -170,7 +170,7 @@ class rat:
         num = self.num
         den = self.den
         while den != 0:
-            ipart = num/den
+            ipart = num//den
             chain.append(ipart)
             num -= den*ipart
             num,den = den, num
@@ -181,8 +181,7 @@ class rat:
         num = 1
         den = 0
         for c in chain[::-1]:
-            num, den = den, num
-            num += c*den
+            num, den = den + c*num, num
         self.num = num
         self.den = den
 
