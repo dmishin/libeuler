@@ -170,24 +170,11 @@ class rat:
 
     def to_chain(self):
         "Converts rational to chain fraction, that is returned as list."
-        chain = list()
-        num = self.num
-        den = self.den
-        while den != 0:
-            ipart = num//den
-            chain.append(ipart)
-            num -= den*ipart
-            num,den = den, num
-        return chain
+        return numtheor.confrac(*self.numden())
     
     def from_chain(self, chain):
         "Converts value from chain fraction"
-        num = 1
-        den = 0
-        for c in chain[::-1]:
-            num, den = den + c*num, num
-        self.num = num
-        self.den = den
+        self.num, self.den = numtheor.from_chain(chain)
 
     def __int__(self):
         return self.intpart()

@@ -368,10 +368,17 @@ def confrac(num, den):
     "numeric continuous fraction"
     c=[]
     while den!=0:
-        r = num/den
+        r = num//den
         c.append(r)
         den,num=num%den,den
     return c
+
+def from_confrac( cf ):
+    num, den = 1,0 
+    for c in cf[::-1]:
+        num, den = den + c*num, num
+    return (num, den)
+
 
 def fibonacci(n, zero=0, one=1):
     "Fast, matrix-power based fibbonacci number calculator"
@@ -394,8 +401,6 @@ def fibonacci(n, zero=0, one=1):
     else:
         mn = mpow(M, n)
         return mn[1]
-            
-
 
 class ModularInt:
     def __init__(self, x, m):
