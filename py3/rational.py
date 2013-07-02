@@ -85,14 +85,14 @@ class rat:
     def __rmul__(self, v):
         return self.__mul__(v)
         
-    def __div__(self, v):
+    def __truediv__(self, v):
         if isinstance(v, int):
             return rat(self.num, self.den*v)
         if isinstance(v, rat):
             return rat(self.num * v.den, self.den*v.num)
         raise ValueError("Wrong type of multipolier")
     
-    def __rdiv__(self, v):
+    def __rtruediv__(self, v):
         if isinstance(v, int):
             return rat(self.den*v, self.num)
         if isinstance(v, rat):
