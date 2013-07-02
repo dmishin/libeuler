@@ -25,7 +25,10 @@ def str2rat(s, base=10):
     if len(spl)==2:
         return rat( int(spl[0],base), int(spl[1],base) )
     raise ValueError("String is not a fraction: "+s)
-    
+
+def from_confrac( cf ):
+    return rat(*numtheor.from_confrac(cf), normalize=False)
+
 class rat:
     "Rational number class"
     
