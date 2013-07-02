@@ -34,8 +34,8 @@ class rat:
     
     def __init__(self,num=0,den=1, normalize = True):
         "Create rational value"
-        self.num = int(num)
-        self.den = int(den)
+        self.num = num
+        self.den = den
         if normalize:
             self._norm()
     
@@ -54,23 +54,19 @@ class rat:
         "Normalize: remove the common denominator"
         if self.num == 0:
             self.den = 1
-            return
-        if self.den == 0:
+        elif self.den == 0:
             #invalud value
             if   self.num < 0:
                 self.num = -1
             elif self.num > 0:
                 self.num = 1
-                    
-            return
-            
-        if self.den<0: #normalize sign
+        elif self.den<0: #normalize sign
             self.num = -self.num
             self.den = -self.den
-            
-        k = numtheor.gcd(self.num, self.den)
-        self.num //= k
-        self.den //= k
+        else:  
+            k = numtheor.gcd(self.num, self.den)
+            self.num //= k
+            self.den //= k
     
     def intpart(self):
         return self.num//self.den
