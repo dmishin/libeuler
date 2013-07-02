@@ -140,13 +140,13 @@ class rat:
         "absolute value"
         return rat(abs(self.num),abs(self.den),False)
 
-    def __bool__ (self):
-        return self.num != 0
+    def iszero (self):
+        return self.num == 0
             
     def __eq__(self, v):
         if isinstance(v, rat):
             return self.num*v.den == self.den*v.num
-        if isinstance(v, int) or isinstance(v, int):
+        if isinstance(v, int):
             return self.num*v == self.den
         raise ValueError("Can not compare rational and %s"%v)
 
@@ -187,3 +187,5 @@ class rat:
 
     def __int__(self):
         return self.intpart()
+    def numden(self):
+        return (self.num, self.den)
