@@ -71,7 +71,11 @@ class rat:
     
     def intpart(self):
         return self.num//self.den
-    
+
+    def fracpart(self):
+        """Fractional part: (4/3).fracpart() == 1/3"""
+        return rat(self.num%self.den, self.den, False)
+
     def copy(self):
         return rat(self.num, self.den, False)
         
