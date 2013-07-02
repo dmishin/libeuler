@@ -46,21 +46,10 @@ def countstep(x=0,step=1):
 
 def pfac(x):
     "Prime factorization"
-    fac=[]
-    def nums():
-        yield 2
-        for p in countstep(3,2):
-            yield p
-    for p in nums():
-        if x<=1:
-            return fac
-        while x%p==0:
-            x=x//p
-            fac.append(p)
+    return list(pfaci(x))
             
 def pfaci(x):
     "Prime factorization generator version"
-    fac=[]
     def nums():
         yield 2
         for p in countstep(3,2):
@@ -89,18 +78,14 @@ def grp(l):
                 yield (v,n)
                 v=y
                 n=1
-    yield (v,n)
-                
-##print "list grouping test", list(grp(pfac(128*81*121)))
-
+    if v is not None:
+        yield (v,n)
 
 def numdivs(n):
     "number of divisors"
     if n==1: return 1
     return prod([f[1]+1 for f in grp(pfac(n))])
 
-#print "Number of divisors of 6:", numdivs(6)
-#print "Number of divisors of 36:", numdivs(36)
 def findfirst(l, pred):
     "Finds first item in sequence, that makes the predicate true"
     for y in l:
@@ -185,10 +170,10 @@ def sqrti(x):
     if x<0:
         raise ValueError("Square root of negative value")
     
-    r=(x+1)//2
     def itr(r):
         return (x//r+r)//2
         
+    r=(x+1)//2
     while True:
         r1=itr(itr(r))
         if r1==r:
