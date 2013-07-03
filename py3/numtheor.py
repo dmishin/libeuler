@@ -402,6 +402,12 @@ class ModularInt:
             return y.x
         else:
             return y
+
+    def divide_both(self, d):
+        """Devide both modulo and remainder by some value. Raises exception, if not divisible"""
+        assert (self.x % d == 0)
+        assert (self.m % d == 0)
+        return ModularInt(self.x//d, self.m//d)
         
     def __mul__(self, y):
         return self.__make( self.x * self.__get_value(y) )
