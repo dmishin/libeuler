@@ -81,6 +81,20 @@ class TestDivisors(unittest.TestCase):
         eq( nt.prod( [1] ), 1 )
         eq( nt.prod( [1,2,3,4] ), 1*2*3*4 )
 
+class TestDigits(unittest.TestCase):
+    def test_digits(self):
+        eq = self.assertSequenceEqual
+        eq( nt.digits(0, 10), [] )
+        eq( nt.digits(1, 10), [1] )
+        eq( nt.digits(12345, 10), [5,4,3,2,1] )
+
+        eq( nt.digits(8, 2), [0,0,0,1] )
+        eq( nt.digits(7, 2), [1,1,1] )
+    def test_from_digits(self):
+        eq = self.assertEqual
+        eq( nt.from_digits( [1,2,3], 10 ), 321 )
+        eq( nt.from_digits( [1,1,1], 2 ), 7 )
+        eq( nt.from_digits( [], 2 ), 0 )
 
 class TestPrimes(unittest.TestCase):
     def setUp(self):
@@ -146,3 +160,4 @@ class TestPrimes(unittest.TestCase):
 
 if __name__=="__main__":
     unittest.main()
+

@@ -233,10 +233,11 @@ def nthperm(l,n):
 def digits(a,p=10):
     "representation of number a in positional system, from lowest to highest. for 0, returns []"
     assert(a>=0)
+    assert (p>1)
     rval=[]
     while a!=0:
         rval.append(a%p)
-        a=a/p
+        a=a//p
     return rval
     
 def from_digits(digs, p=10):
