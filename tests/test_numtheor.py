@@ -30,6 +30,40 @@ class TestLists(unittest.TestCase):
         eq( nt.findfirst(lst, lambda x: x>5), 6)
         eq( nt.findfirst(lst, lambda x: x>100), None)
 
+class TestFib(unittest.TestCase):
+    def test_fibonacci(self):
+        eq = self.assertEqual
+
+        fibs = [0,1,1,2,3,5,8,13]
+        for i, fi in enumerate(fibs):
+            eq( nt.fibonacci(i), fi, "Check bibonacci(%d)"%i)
+        #Check far away fibonacci
+        n = 2000
+        fn = nt.fibonacci(n)
+        fn1 = nt.fibonacci(n+1)
+        fn2 = nt.fibonacci(n+2)
+        eq( fn+fn1, fn2, "Check fibonacci equality for n = 2000" )
+        self.assertTrue( fn1 > fn )
+
+class TestConfrac(unittest.TestCase):
+    def test_confrac(self):
+        eq = self.assertSequenceEqual
+        eq( nt.confrac( 1, 1 ), [1] )
+        eq( nt.confrac( 2, 1) , [2] )
+        eq( nt.confrac( 1, 2) , [0, 2] )
+        eq( nt.confrac( 5, 7) , [0, 1, 2, 2] )
+        
+    def test_from_confrac(self):
+        eq = self.assertEqual
+        eq( nt.from_confrac( [1] ), ( 1, 1 ) )
+        eq( nt.from_confrac ( [2] ), ( 2, 1) )
+        eq( nt.from_confrac ( [0, 2] ), ( 1, 2) )
+        eq( nt.from_confrac ( [0, 1, 2, 2] ), ( 5, 7) )
+
+        #Composite test
+        eq( nt.from_confrac( nt.confrac(317, 997)), (317, 997))
+    
+
 class TestMrange(unittest.TestCase):
     def test_1_arg(self):
         eq = self.assertEqual
