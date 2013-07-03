@@ -273,9 +273,9 @@ def isperm(a, b, p=10):
         q=p-1
         if (a-b)%q:
             return False
-    la=digits(a)
+    la=digits(a,p)
     la.sort()
-    lb=digits(b)
+    lb=digits(b,p)
     lb.sort()
     return la==lb
 

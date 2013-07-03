@@ -95,6 +95,27 @@ class TestDigits(unittest.TestCase):
         eq( nt.from_digits( [1,2,3], 10 ), 321 )
         eq( nt.from_digits( [1,1,1], 2 ), 7 )
         eq( nt.from_digits( [], 2 ), 0 )
+    def test_isperm(self):
+        et = self.assertTrue
+        #Decimal
+        et( nt.isperm( 123, 123, 10 ) )
+        et( nt.isperm( 123, 321, 10 ) )
+        et( nt.isperm( 123, 213, 10 ) )
+        et( nt.isperm( 5, 5, 10 ) )
+        et( nt.isperm( 11511, 51111, 10 ) )
+
+        et( not nt.isperm( 12, 23, 10 ) )
+        et( not nt.isperm( 12, 112, 10 ) )
+        et( not nt.isperm( 12, 1, 10 ) )
+        et( not nt.isperm( 1111, 1, 10 ) )
+        #Defautl is decimal
+        et( nt.isperm( 123, 321 ) )
+        et( not nt.isperm( 123, 521 ) )
+        #Base-2
+        et( nt.isperm( 3, 3, 2 ) ) #11
+        et( nt.isperm( 5, 6, 2 ) ) #101, 110
+        et( not nt.isperm( 7, 8, 2 ) ) #111, 1000
+        et( not nt.isperm( 5, 4, 2 ) ) #101, 100
 
 class TestPrimes(unittest.TestCase):
     def setUp(self):
