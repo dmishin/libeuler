@@ -442,3 +442,6 @@ class ModularInt:
         else:
             return x1 * self
     
+    def __eq__(self, y):
+        y = self.__get_value(y)
+        return (self.x - y) % self.m == 0

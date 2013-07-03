@@ -62,8 +62,49 @@ class TestConfrac(unittest.TestCase):
 
         #Composite test
         eq( nt.from_confrac( nt.confrac(317, 997)), (317, 997))
-    
 
+class TestModularInt(unittest.TestCase):    
+    def test_basic(self):
+        z = nt.ModularInt(0, 5)
+        e = nt.ModularInt(1, 5)
+        
+        at = self.assertTrue
+        at( z == z )
+        at( e == e )
+        at( e != z )
+        at( z != e )
+
+        at( z == nt.ModularInt(0, 5) )
+        at( e == nt.ModularInt(1, 5) )
+    def test_arithmetics(self):
+        z = nt.ModularInt(0, 5)
+        e = nt.ModularInt(1, 5)        
+        e2 = nt.ModularInt(2, 5)
+        
+        ae = self.assertEqual
+
+        ae( z+z, z, "Sum with zero" )
+        ae( z+e, e, "Sum with zero" )
+        ae( e+z, e, "Sum with zero" )
+        ae( e2+z, e2, "Sum with zero" )
+        
+        ae( e+e, e2, "1+1=2" )
+        ae( e2+e2+e, z, "2+2+1=0 mod 5" )
+        
+        
+        ae( +z, z, "Unary +")
+        ae( +e, e, "Unary +")
+        ae( -z, z, "Unary -")
+        ae( -e+e, z, "-1+1=0")
+        ae( -e+e2, e, "-1+2=1")
+        ae( -(-e2), e2)
+
+        ae( e-e, z, "Minus" )
+        ae( e2-e, e )
+        ae( e2-e2, z )
+        ae( -e2-e2, e )
+
+        
 class TestMrange(unittest.TestCase):
     def test_1_arg(self):
         eq = self.assertEqual
