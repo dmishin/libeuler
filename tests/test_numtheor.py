@@ -81,6 +81,29 @@ class TestDivisors(unittest.TestCase):
         eq( nt.prod( [1] ), 1 )
         eq( nt.prod( [1,2,3,4] ), 1*2*3*4 )
 
+    def test_gcd(self):
+        eq = self.assertEqual
+        eq( nt.gcd(1, 1), 1)
+        eq( nt.gcd(1, 5), 1)
+        eq( nt.gcd(5, 1), 1)
+
+        eq( nt.gcd(5, 5), 5)
+        eq( nt.gcd(6, 15), 3)
+        eq( nt.gcd(15, 6), 3)
+        eq( nt.gcd(16, 16), 16)
+        eq( nt.gcd(16, 15), 1)
+        eq( nt.gcd(2**20, 3**10), 1)
+        eq( nt.gcd(2**20, 3**10), 1)
+    def test_lcf(self):
+        eq = self.assertEqual
+        eq( nt.lcf(1,1), 1)
+        eq( nt.lcf(1,5), 5)
+        eq( nt.lcf(5,1), 5)
+        eq( nt.lcf(5,5), 5)
+
+        eq( nt.lcf(15, 6), 2*3*5)
+        eq( nt.lcf(2**20, 3**10), 2**20*3**10)
+
 class TestDigits(unittest.TestCase):
     def test_digits(self):
         eq = self.assertSequenceEqual
