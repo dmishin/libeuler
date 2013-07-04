@@ -431,16 +431,7 @@ class ModularInt:
     def __pow__(self, n):
         assert( isinstance(n, int))
         if n < 0: raise ValueError("Negative powers not supported yet")
-        if n == 0:
-            return self.__make(1)
-        if n == 1:
-            return self
-        x1 = self ** (n//2)
-        x1 = x1*x1
-        if n%2 == 0:
-            return x1
-        else:
-            return x1 * self
+        return self.__make( pow_mod(self.x, n, self.m))
     
     def __eq__(self, y):
         y = self.__get_value(y)
