@@ -133,4 +133,15 @@ class TestRational(unittest.TestCase):
 
         #Power
         ae( R(2,3) ** 2, R(4,9))
+        ae( R(2,3) ** 0, 1)
+        ae( R(2,3) ** (-1), R(3,2))
+        
+    def test_intpart_fracpart(self):
+        r = Rational(7,5)
+        self.assertEqual(r.intpart(), 1)
+        self.assertEqual(r.fracpart(), Rational(2,5))
+        
+        r1 = Rational(-7,5)
+        self.assertEqual(r1.intpart(), -2)
+        self.assertEqual(r1.fracpart(), Rational(3,5))
         
