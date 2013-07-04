@@ -8,6 +8,9 @@ class TestRoots(unittest.TestCase):
         eq( nt.sqrti(4), 2 )
         eq( nt.sqrti(5), 2 )
         eq( nt.sqrti(15), 3 )
+        x = 111111111111111111111
+        eq( nt.sqrti(x**2 + 1000), x )
+        eq( nt.sqrti(x**2 - 1000), x-1 )
     def test_issquare(self):
         self.assertTrue( nt.issquare( 0 ) )
         self.assertTrue( nt.issquare( 1 ) )
