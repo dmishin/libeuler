@@ -3,8 +3,12 @@
 import numtheor
 import math
 
-def float2rat(f, eps = 1e-6, iters = 1000):
+def float2rat(f, eps = None, iters = 1000):
     """Converts float to rational"""
+    if eps is None:
+        eps = abs(f)*1e-6
+    if f < 0:
+        return -float2rat(-f, eps, iters)
     flr = math.floor(f)
     frac = f-flr
     if eps<=0:

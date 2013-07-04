@@ -109,7 +109,8 @@ class TestRational(unittest.TestCase):
         #Unaries
         ae( +R(2,3),  R(2,3))
         ae( -R(2,3),  R(-2,3))
-        
+        ae( -R(0), R(0) )
+        ae( 0*R(-2,3), 0*R(4,5) )
 
         #Subtraction
         ae( R(3,2) - R(2,3),  R(5,6) )
@@ -135,6 +136,10 @@ class TestRational(unittest.TestCase):
         ae( R(2,3) ** 2, R(4,9))
         ae( R(2,3) ** 0, 1)
         ae( R(2,3) ** (-1), R(3,2))
+
+        #Abs value
+        ae( abs(R(2,3)), R(2,3))
+        ae( abs(R(-2,3)), R(2,3))
         
     def test_intpart_fracpart(self):
         r = Rational(7,5)
@@ -145,3 +150,19 @@ class TestRational(unittest.TestCase):
         self.assertEqual(r1.intpart(), -2)
         self.assertEqual(r1.fracpart(), Rational(3,5))
         
+    def test_copy(self):
+        r = Rational(7,5)
+        r1 = r.copy()
+        self.assertEqual(r, r1)
+        r.num = 8
+        self.assertNotEqual(r, r1)
+        
+    def test_is_zero(self):
+        R = Rational
+        self.assertTrue( Rational(0).iszero() )
+        self.assertTrue( Rational(0,1).iszero() )
+        self.assertTrue( Rational(0,5, False).iszero() )
+
+        self.assertFalse( Rational(1).iszero() )
+        self.assertFalse( Rational(1,1).iszero() )
+
