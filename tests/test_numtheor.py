@@ -9,7 +9,16 @@ class TestRoots(unittest.TestCase):
         eq( nt.sqrti(5), 2 )
         eq( nt.sqrti(15), 3 )
     def test_issquare(self):
-        pass
+        self.assertTrue( nt.issquare( 0 ) )
+        self.assertTrue( nt.issquare( 1 ) )
+        self.assertTrue( nt.issquare( 25 ) )
+        self.assertTrue( nt.issquare( 111111111111111111111**2 ) )
+
+        self.assertFalse( nt.issquare( 2 ) )
+        self.assertFalse( nt.issquare( 3 ) )
+        self.assertFalse( nt.issquare( 28 ) )
+        self.assertFalse( nt.issquare( 1 + 111111111111111111111**2 ) )
+
     def test_iroot3(self):
         pass
 
