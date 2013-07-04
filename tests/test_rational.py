@@ -32,15 +32,16 @@ class TestRational(unittest.TestCase):
         r1 = Rational( 1, 1)
         r2 = Rational( 2, 3)
         r3 = Rational( 1, 7)
-        self.assertEqual( r0, r0 )
-        self.assertEqual( r1, r1 )
-        self.assertEqual( r2, r2 )
-        self.assertEqual( r3, r3 )
+        self.assertEqual( r0, Rational(0,1) )
+        self.assertEqual( r1, Rational(1,1) )
+        self.assertEqual( r2, Rational(2,3) )
+        self.assertEqual( r3, Rational(1,7) )
 
         self.assertNotEqual( r0, r1 )
         self.assertNotEqual( r1, r2 )
         self.assertNotEqual( r0, r2 )
-        
+        self.assertFalse( r0 != Rational(0,1) )
+        self.assertFalse( r1 != Rational(1,1) )
 
         #Equality to a number
         self.assertEqual( r0, 0 )
