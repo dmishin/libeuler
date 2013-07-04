@@ -151,7 +151,7 @@ class rat:
         if isinstance(v, rat):
             return self.num*v.den == self.den*v.num
         if isinstance(v, int):
-            return self.num*v == self.den
+            return self.den*v == self.num
         raise ValueError("Can not compare rational and %s"%v)
 
     def __le__(self, v):
@@ -159,12 +159,17 @@ class rat:
             return self.num*v.den <= self.den*v.num
         else:
             return self.num <= self.den*v
+
+    def __ge__(self, v):
+        return not self.__lt__(v)
+
     def __lt__(self, v):
         if isinstance(v, rat):
             return self.num*v.den < self.den*v.num
         else:
             return self.num < self.den*v
-
+    def __gt__(self, v):
+        return not self.__le__(v)
     def __hash__(self):
         return (self.num, self.den).__hash__()
 
