@@ -56,7 +56,14 @@ class TestFib(unittest.TestCase):
         fn2 = nt.fibonacci(n+2)
         eq( fn+fn1, fn2, "Check fibonacci equality for n = 2000" )
         self.assertTrue( fn1 > fn )
-
+    def test_negativefib(self):
+        #  -3 -2   -1 0  1
+        #  -2, 1, -1, 0, 1
+        
+        for n in range(-20, 10):
+            self.assertEqual( nt.fibonacci(n)+nt.fibonacci(n+1), 
+                              nt.fibonacci(n+2),
+                              "Test f(%d)+f(%d)=f(%d)"%(n,n+1, n+2) )
 class TestConfrac(unittest.TestCase):
     def test_confrac(self):
         eq = self.assertSequenceEqual

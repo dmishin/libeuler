@@ -59,7 +59,7 @@ def pfaci(x):
         if x<=1:
             return
         while x%p==0:
-            x=x/p
+            x = x//p
             yield p
 
 
@@ -379,7 +379,14 @@ def fibonacci(n, zero=0, one=1):
             return mp2
         else:
             return mul(mp2, m)
+        
     if n == 0: return 0
+    elif n < 0: 
+        fp = fibonacci(-n, zero=zero, one=one)
+        if n % 2 == 1:
+            return fp
+        else:
+            return -fp
     else:
         mn = mpow(M, n)
         return mn[1]
