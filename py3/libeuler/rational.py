@@ -1,6 +1,5 @@
 #Python module for simple rational numbers
-
-import numtheor
+from libeuler import numtheor
 import math
 
 def float2rat(f, eps = None, iters = 1000):

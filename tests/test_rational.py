@@ -1,5 +1,5 @@
-import rational
-from rational import rat as Rational
+from libeuler import rational
+from libeuler.rational import rat as Rational
 
 import unittest
 class TestRational(unittest.TestCase):

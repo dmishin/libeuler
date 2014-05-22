@@ -1,4 +1,4 @@
-import numtheor as nt
+import libeuler.numtheor as nt
 import unittest
 class TestRoots(unittest.TestCase):
     def test_sqrti(self):
@@ -295,17 +295,18 @@ class TestPrimes(unittest.TestCase):
             return n
         for x in range(1, 100):
             ae(nt.phi(x), phi_naive(x), "Checking phi for x=%d"%(x))
+
     def test_mu(self):
-        expected = [1, -1, -1, 0, -1, 1, -1, 0, 0, 1, -1, 0, -1, 1, 1, 0, -1, 0, -1, 0, 1, 1, -1, 0, 0, 1, 0, 0, -1, -1, -1, 0, 1, 1, 1, 0, -1, 1, 1, 0, -1, -1, -1, 0, 0, 1, -1, 0, 0, 0, 1, 0, -1, 0, 1, 0, 1, 1, -1, 0, -1, 1, 0, 0, 1, -1, -1, 0, 1, -1, -1, 0, -1, 1, 0, 0, 1]
+        expected = [1, -1, -1, 0, -1, 1, -1, 0, 0, 1, -1, 0, -1, 1, 1, 0, -1, 0, -1, 0, 1, 1, -1, 0, 0, 1, 
+                    0, 0, -1, -1, -1, 0, 1, 1, 1, 0, -1, 1, 1, 0, -1, -1, -1, 0, 0, 1, -1, 0, 0, 0, 1, 0, 
+                    -1, 0, 1, 0, 1, 1, -1, 0, -1, 1, 0, 0, 1, -1, -1, 0, 1, -1, -1, 0, -1, 1, 0, 0, 1]
 
-        a8683 = mu
-
+        a8683 = nt.mu
 
         for i, ai in enumerate(expected):
             ai_c = a8683(i+1)
-            self.assertEqual( ai, ai_c, "For n=%d, expected %d, but got %d"%(i+1, ai, ai_c) )
+            self.assertEqual( ai, ai_c, "For mu(%d), expected %d, but got %d"%(i+1, ai, ai_c) )
 
-print "mu works"
 
 if __name__=="__main__":
     unittest.main()
