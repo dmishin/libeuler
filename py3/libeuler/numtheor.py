@@ -188,7 +188,7 @@ def issquare(x):
     return x==q*q
 
 def iroot3(x):
-    "Integer cubic root of x"
+    "Integer cubic root of x: biggest integer r, such that r^3 <= x"
     if x==0: return 0
     if x<0:
         return -iroot3(-x)
@@ -242,7 +242,7 @@ def nthperm(l,n):
     if len(l)==1:
         return l
     f=factorial(len(l)-1)
-    i=n/f
+    i=n//f
     r=n%f
     return [l[i]]+nthperm(l[:i]+l[i+1:],r)
 

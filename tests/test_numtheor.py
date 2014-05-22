@@ -1,4 +1,5 @@
 import libeuler.numtheor as nt
+import itertools
 import unittest
 class TestRoots(unittest.TestCase):
     def test_sqrti(self):
@@ -44,6 +45,22 @@ class TestRoots(unittest.TestCase):
         
         
 class TestLists(unittest.TestCase):
+    def test_nthperm(self):
+        sample = [1,2,3,4,5] # 5! = 120
+        permutations = list(itertools.permutations(sample))
+        permutations.sort() #sort lexicographically
+        for i, perm in enumerate(permutations):
+            self.assertListEqual( nt.nthperm(sample, i), list(perm) )
+    def test_nthperm_0(self):
+        self.assertListEqual( nt.nthperm( [1], 0 ), [1] )
+        self.assertListEqual( nt.nthperm( [1,2], 0 ), [1,2] )
+        self.assertListEqual( nt.nthperm( [1,2,3,4,5,6,7,8], 0 ), [1,2,3,4,5,6,7,8] )
+
+    def test_nthperm_last(self):
+        self.assertListEqual( nt.nthperm( [1,2], 1 ), [2,1] )
+        self.assertListEqual( nt.nthperm( [1,2,3,4,5,6,7,8], nt.factorial(8)-1 ), [8,7,6,5,4,3,2,1] )
+
+
     def test_grp(self):
         eq = self.assertEqual
         grp = lambda l: list(nt.grp(l))
