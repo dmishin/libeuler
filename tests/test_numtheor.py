@@ -157,7 +157,14 @@ class TestModularInt(unittest.TestCase):
         ae( e2-e, e )
         ae( e2-e2, z )
         ae( -e2-e2, e )
+    def test_divboth(self):
+        a = nt.ModularInt(6,14)
+        self.assertEqual( a.divide_both(1), a)
+        self.assertEqual( a.divide_both(2), nt.ModularInt(3,7))
 
+        with self.assertRaises( ValueError):
+            b = a.divide_both( 3 )
+            
         
 class TestMrange(unittest.TestCase):
     def test_1_arg(self):

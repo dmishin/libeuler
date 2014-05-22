@@ -216,7 +216,7 @@ def iroot3(x):
         center = (upper_bound+lower_bound)//2
         fcenter = center ** 3
         if fcenter == x:
-            return x
+            return center
         elif fcenter < x:
             lower_bound = center
         else: 
@@ -381,12 +381,12 @@ def from_confrac( cf ):
 
 def fibonacci(n, zero=0, one=1):
     "Fast, matrix-power based fibbonacci number calculator"
-    M=[one, one, one, zero]
+    M=(one, one, one, zero)
     def mul( m1, m2):
         x11, x12, x21, x22 = m1
         y11, y12, y21, y22 = m2
-        return [ x11*y11+x12*y21, x11*y12+x12*y22,
-                 x21*y11+x22*y21, x21*y12+x22*y22]
+        return ( x11*y11+x12*y21, x11*y12+x12*y22,
+                 x21*y11+x22*y21, x21*y12+x22*y22)
     def mpow(m, n):
         if n < 1: raise ValueError("not supported n<1")
         if n == 1: return m
@@ -429,8 +429,8 @@ class ModularInt:
 
     def divide_both(self, d):
         """Devide both modulo and remainder by some value. Raises exception, if not divisible"""
-        assert (self.x % d == 0)
-        assert (self.m % d == 0)
+        if (self.x % d != 0) or (self.m % d != 0):
+            raise ValueError("Modular integer is not divisible")
         return ModularInt(self.x//d, self.m//d)
         
     def __mul__(self, y):
