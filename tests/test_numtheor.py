@@ -3,6 +3,7 @@ import unittest
 class TestRoots(unittest.TestCase):
     def test_sqrti(self):
         eq = self.assertEqual
+        eq( nt.sqrti(0), 0 )
         eq( nt.sqrti(2), 1 )
         eq( nt.sqrti(3), 1 )
         eq( nt.sqrti(4), 2 )
@@ -23,8 +24,25 @@ class TestRoots(unittest.TestCase):
         self.assertFalse( nt.issquare( 1 + 111111111111111111111**2 ) )
 
     def test_iroot3(self):
-        pass
+        eq = self.assertEqual
+        eq( nt.iroot3(0), 0 )
+        eq( nt.iroot3(1), 1 )
+        eq( nt.iroot3(2), 1 )
+        eq( nt.iroot3(3), 1 )
+        eq( nt.iroot3(7), 1 )
+        eq( nt.iroot3(8), 2 )
+        eq( nt.iroot3(9), 2 )
 
+        eq( nt.iroot3(26), 2  )
+        eq( nt.iroot3(27), 3  )
+        eq( nt.iroot3(28), 3  )
+
+        x = 111111111111111111111111111
+        eq( nt.iroot3(x**3), x  )
+        eq( nt.iroot3(x**3 + 1000), x  )
+        eq( nt.iroot3(x**3 - 1000), x-1  )
+        
+        
 class TestLists(unittest.TestCase):
     def test_grp(self):
         eq = self.assertEqual
@@ -174,6 +192,9 @@ class TestDivisors(unittest.TestCase):
         eq( nt.prod( [] ), 1 )
         eq( nt.prod( [1] ), 1 )
         eq( nt.prod( [1,2,3,4] ), 1*2*3*4 )
+
+        eq( nt.prod( [1,2,3,4], initial=10),
+            10*1*2*3*4 )
 
     def test_gcd(self):
         eq = self.assertEqual

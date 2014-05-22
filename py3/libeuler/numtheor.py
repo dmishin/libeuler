@@ -135,9 +135,9 @@ def mrange(begins, ends=None, steps=None):
         yield x
                 
 
-def prod(l):
+def prod(l, initial=1):
     "Product of all items in list"
-    p = 1
+    p = initial
     for x in l:
         p *= x
     return p
@@ -189,22 +189,39 @@ def issquare(x):
 
 def iroot3(x):
     "Integer cubic root of x"
+    if x==0: return 0
     if x<0:
         return -iroot3(-x)
     r=1
-    def itr(r):
-        r2=r*r
-        return (2*r2*r+x)/(3*r2)
+    lower_bound = 1
+    upper_bound = x
+    i=0
     while True:
-        r0,r=r,itr(itr(r))
-        if r0==r:
+        r2=r*r
+        r3 = r2*r
+        if r3 == x:
+            return r #exact solution found
+        elif r3 < x:
+            lower_bound = max(lower_bound, r)
+        else:
+            upper_bound = min(upper_bound, r)
+        #Update r
+        r = (2*r+x//r2)//3
+        if r <= lower_bound or r >= upper_bound:
             break
-    #algorithm may give ansver both before x and after x. Choosing one of them.
-    if r**3<=x:
-        return r
-    else:
-        return r-1;
-
+    assert lower_bound < upper_bound
+    #now bounds were estimated.
+    #use dichotomy to find a better solution
+    while upper_bound - lower_bound > 1:
+        center = (upper_bound+lower_bound)//2
+        fcenter = center ** 3
+        if fcenter == x:
+            return x
+        elif fcenter < x:
+            lower_bound = center
+        else: 
+            upper_bound = center
+    return lower_bound
 def iscube(x):
     "Returns true, if argument is integer cube"
     r=iroot3(x)
