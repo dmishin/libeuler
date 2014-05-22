@@ -443,3 +443,20 @@ class ModularInt:
     def __eq__(self, y):
         y = self.__get_value(y)
         return (self.x - y) % self.m == 0
+
+def mu(n):
+    """Moebius (or Mobius) function mu(n). 
+    mu(1) = 1; 
+    mu(n) = (-1)^k if n is the product of k different primes; 
+    otherwise mu(n) = 0."""
+    #oeis: A008683
+    
+    if n == 1: return 1
+    mu_n = 1
+    for p, k in grp(pfaci(n)):
+        #p^k
+        if k != 1: 
+            return 0
+        else:
+            mu_n = -mu_n
+    return mu_n

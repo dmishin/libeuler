@@ -295,6 +295,17 @@ class TestPrimes(unittest.TestCase):
             return n
         for x in range(1, 100):
             ae(nt.phi(x), phi_naive(x), "Checking phi for x=%d"%(x))
+    def test_mu(self):
+        expected = [1, -1, -1, 0, -1, 1, -1, 0, 0, 1, -1, 0, -1, 1, 1, 0, -1, 0, -1, 0, 1, 1, -1, 0, 0, 1, 0, 0, -1, -1, -1, 0, 1, 1, 1, 0, -1, 1, 1, 0, -1, -1, -1, 0, 0, 1, -1, 0, 0, 0, 1, 0, -1, 0, 1, 0, 1, 1, -1, 0, -1, 1, 0, 0, 1, -1, -1, 0, 1, -1, -1, 0, -1, 1, 0, 0, 1]
+
+        a8683 = mu
+
+
+        for i, ai in enumerate(expected):
+            ai_c = a8683(i+1)
+            self.assertEqual( ai, ai_c, "For n=%d, expected %d, but got %d"%(i+1, ai, ai_c) )
+
+print "mu works"
 
 if __name__=="__main__":
     unittest.main()
