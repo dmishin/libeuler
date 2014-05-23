@@ -480,13 +480,15 @@ def mu(n):
 
 def binomial(n,k):
     """Return binomial coeff (n, i)
-    Equal to n!/((n-k)!k!)"""
+    Equal to n!/((n-k)!k!)
+    Complexity: O(k), assuming multiplication and divisions are O(1)
+    """
     if k < 0 or k > n:
         raise ValueError("K must be not bigger than n")
     k = min(k, n-k)
     c = 1
-    for i in range(1, k+1):
-        c *= (n+1-i)
-        c //= i #must be zero remainder
+    for i in range(k):
+        c *=  n-i
+        c //= i+1 #must be zero remainder
     return c
     
