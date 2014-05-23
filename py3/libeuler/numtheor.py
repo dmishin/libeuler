@@ -111,28 +111,42 @@ def pow_mod(x,n,p):
 
 
 def mrange(begins, ends=None, steps=None):
-    "Multidimensional range"
-    if steps==None:
+    """Multidimensional range. 
+    mrange ( ends )
+    mrange ( begins, ends )
+    mrange ( begins, ends, steps )
+
+    Generates sequence of tuples,
+    sorting order is inverse lexicographic!
+    
+    mrange( (3,2) )
+    generates:
+     [ (0,0), (1,0), (2,0), (0,1), (0,2), (0,3) ]
+    """
+    if steps is None:
         steps=(1,)*len(begins)
-    if ends==None:
+    if ends is None:
         ends=begins
         begins=(0,)*len(ends)
         
     if len(begins)!=len(ends) or len(ends)!=len(steps):
-        raise Exception
-    bes=list(zip(begins,ends,steps))
-    
-    def mrange_rec(bes):
-        if len(bes)==0:
-            return
-        if len(bes)==1:
-            for x in range(*(bes[0])):
-                yield (x,)
-        for x2_xn in mrange_rec(bes[1:]):
+        raise ValueError("Begins, ends, steps must have the same length")
+
+    return __mrange_rec(list(zip(begins,ends,steps)))
+
+def __mrange_rec(bes):
+    """Implementation of the mrange
+    arguments: list of tuples [ (begin, end, step) ]
+    """
+    if len(bes)==0:
+        return
+    elif len(bes)==1:
+        for x in range(*(bes[0])):
+            yield (x,)
+    else:
+        for x2_xn in __mrange_rec(bes[1:]):
             for x1 in range(*(bes[0])):
                 yield (x1,)+x2_xn
-    for x in mrange_rec(bes):
-        yield x
                 
 
 def prod(l, initial=1):

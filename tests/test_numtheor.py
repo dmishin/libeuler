@@ -179,9 +179,31 @@ class TestMrange(unittest.TestCase):
         eq( mr1([1,1]), [(0,0)] )
         eq( mr1([2,2]), [(0,0), (1,0), (0,1), (1,1)] )
     def test_2_arg(self):
-        eq = self.assertEqual
-        def mr1(ends):
-            return list(nt.mrange(ends))
+
+        r2_32 = [(0,0), (1,0), (2,0),
+                 (0,1), (1,1), (2,1) ]
+
+        self.assertListEqual( list(nt.mrange( (3,2) )),
+                              r2_32 )
+
+        self.assertListEqual( list(nt.mrange( (0,0), (3,2) )),
+                              r2_32 )
+
+        self.assertListEqual( list(nt.mrange( (0,0), (3,2), (1,1) )),
+                              r2_32 )
+
+    def test_3_arg(self):
+
+        def rng3():
+            for i in range(3):
+                for j in range(4):
+                    for k in range(5):
+                        yield (k,j,i)
+
+        for expected, got in zip(rng3(),
+                                 nt.mrange( (5,4,3))):
+            self.assertEqual( expected, got )
+
 
 class TestDivisors(unittest.TestCase):
     def test_numdivs(self):
