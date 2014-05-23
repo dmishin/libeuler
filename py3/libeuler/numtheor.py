@@ -477,3 +477,16 @@ def mu(n):
         else:
             mu_n = -mu_n
     return mu_n
+
+def binomial(n,k):
+    """Return binomial coeff (n, i)
+    Equal to n!/((n-k)!k!)"""
+    if k < 0 or k > n:
+        raise ValueError("K must be not bigger than n")
+    k = min(k, n-k)
+    c = 1
+    for i in range(1, k+1):
+        c *= (n+1-i)
+        c //= i #must be zero remainder
+    return c
+    

@@ -352,6 +352,37 @@ class TestPrimes(unittest.TestCase):
             ai_c = a8683(i+1)
             self.assertEqual( ai, ai_c, "For mu(%d), expected %d, but got %d"%(i+1, ai, ai_c) )
 
+class TestBinomial(unittest.TestCase):
+    def test_simple(self):
+        expected = [ [1],
+                     [1,1],
+                     [1,2,1],
+                     [1,3,3,1],
+                     [1,4,6,4,1],
+                     [1,5,10,10,5,1]]
+        for n, row in enumerate( expected):
+            for k, cnk in enumerate(row):
+                cnk_got = nt.binomial(n,k)
+                self.assertEqual( cnk,
+                                  cnk_got,
+                                  "C(%d, %d): expected %d, got %d"%(n,k,cnk, cnk_got))
+    def test_large(self):
+
+        for n, k in ((1000,500),
+                     (2000,30),
+                     (100, 41),
+                     (111,37)):
+            self.assertEqual( nt.binomial(n,k),
+                              nt.binomial(n-1,k)+nt.binomial(n-1,k-1),
+                              "C(%d,%d) != C(%d,%d)+C(%d,%d)"%(n,k,n-1,k-1,n-1,k))
+
+    def test_factorial_formula(self):
+        fac = nt.factorial
+        for n in range(10):
+            for k in range(n+1):
+                self.assertEqual( nt.binomial(n,k),
+                                  fac(n) / (fac(n-k)*fac(k)),
+                                  "C({n},{k})={n}!/(({n}-{k})!{k}!)".format(n=n,k=k))
 
 if __name__=="__main__":
     unittest.main()
