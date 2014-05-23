@@ -167,7 +167,7 @@ def alldivs(x):
     P=[p for p,e in decomp]
     
     for pows in mrange([p_e[1]+1 for p_e in decomp]):
-        yield prod([p**e for p,e in zip(P, pows) ])
+        yield prod(p**e for p,e in zip(P, pows))
 
 def sumdivs(x):
     "Sum of all divisors of x, except x itself (but including 1)"
