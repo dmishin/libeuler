@@ -514,5 +514,5 @@ def arder(n):
     """
     if n < 0: raise ValueError("n is negative")
     if n == 1: return 0
-    return sum( n/pi*ei for (pi, ei) in grp(pfaci(n)) )
+    return sum( n//pi*ei for (pi, ei) in grp(pfaci(n)) )
         
