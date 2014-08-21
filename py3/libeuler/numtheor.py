@@ -506,3 +506,13 @@ def binomial(n,k):
         c //= i+1 #must be zero remainder
     return c
     
+def arder(n):
+    """Arithmetic derivative
+    http://oeis.org/A003415
+    
+    Values:  	0, 0, 1, 1, 4, 1, 5, 1, 12, 6, 7, 1, 16, 1, 9, 8, 32, 1, 21, 1, 24, 10, 13, 1, 44, 10, 15, 27, 32, 1, 31, 1, 80, 14, 19, 12, 60, 1, 21, 16, 68, 1, 41, 1, 48, 39, 25, 1, 112, 14, 45, 20, 56, 1, 81, 16, 92, 22, 31, 1, 92, 1, 33, 51, 192, 18, 61, 1, 72, 26, 59, 1, 156, 1, 39, 55, 80, 18, 71
+    """
+    if n < 0: raise ValueError("n is negative")
+    if n == 1: return 0
+    return sum( n/pi*ei for (pi, ei) in grp(pfaci(n)) )
+        
