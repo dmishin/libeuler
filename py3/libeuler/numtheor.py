@@ -516,3 +516,45 @@ def arder(n):
     if n == 1: return 0
     return sum( n//pi*ei for (pi, ei) in grp(pfaci(n)) )
         
+
+def polygonal(p,n):
+    """Polygonal number"""
+    return n*((p-2)*n-p+4)//2
+    # ((p-2)*n**2 - (p-4)*n ) // 2
+
+def invpolygonal(p,x):
+    """inverse polygotnal number. Returns number index from it value"""
+    # x = ((p-2)*n**2 - (p-4)*n ) // 2
+    # (p-2)*n**2 - (p-4)*n - 2x = 0
+    # D = (p-4)**2 +8*(p-2)*x
+    D = (p-4)**2 +8*(p-2)*x    
+    # n = ( (p-4) + sqrt(D) ) / (2(p-2))
+    return ((p-4) + sqrti(D) ) // (2*(p-2))
+
+def zip_with_previous(seq):
+    """Generates sequence of consequent element pairs.
+    Original sequence may be generator
+    Example:
+    [1,2,3] -> [(1,2),(2,3)]
+    For 1 element and 2 element sequences, yields empty sequence.
+    """
+    iseq = iter(seq)
+    try:
+        prev = next(iseq)
+        while True:
+            x = next(iseq)
+            yield (prev, x)
+            prev = x
+    except StopIteration:
+        pass
+
+def has_repetitions(seq):
+    """True, if the sequence has repe ing elements.
+    Sequence elements should not be None"""
+    for a, b in zip_with_previous(seq):
+        if a == b:
+            return True
+    return False    
+
+def squarefree(x):
+    return not has_repetitions(pfaci(x))
