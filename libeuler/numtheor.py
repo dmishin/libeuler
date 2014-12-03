@@ -365,7 +365,6 @@ def gcd(a,b):
     "Greatest common divisor"
     while True:                
         if b==0: return a
-        if a%b==0: return b
         a,b = b,a%b
 
 def lcf(a,b):
