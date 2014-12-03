@@ -96,10 +96,12 @@ def grp(l):
     if v is not None:
         yield (v,n)
 
-def numdivs(n):
-    "number of divisors"
+def numdivs(n, factorize = pfaci):
+    """number of divisors.
+    Allows to use custom factorizer
+    """
     if n==1: return 1
-    return prod([f[1]+1 for f in grp(pfac(n))])
+    return prod(e+1 for _,e in grp(factorize(n)) )
 
 def findfirst(l, pred):
     "Finds first item in sequence, that makes the predicate true"
@@ -171,17 +173,18 @@ def prod(l, initial=1):
         p *= x
     return p
 
-def alldivs(x):
-    "generates all divisors of x, including 1 and the number itself"
+def alldivs(x, factorize = pfaci):
+    """generates all divisors of x, including 1 and the number itself.
+    Order is not increasing!"""
     if x == 1:
         yield 1
         return
 
-    decomp=tuple(grp(pfac(x)))    
+    decomp=tuple(grp(factorize(x)))    
     #enumerate all powers
     P=[p for p,e in decomp]
     
-    for pows in mrange([p_e[1]+1 for p_e in decomp]):
+    for pows in mrange([e+1 for p,e in decomp]):
         yield prod(p**e for p,e in zip(P, pows))
 
 def sumdivs(x):
@@ -251,6 +254,7 @@ def iroot3(x):
         else: 
             upper_bound = center
     return lower_bound
+
 def iscube(x):
     "Returns true, if argument is integer cube"
     r=iroot3(x)
@@ -356,23 +360,14 @@ def gcdl(l):
     
 def uniq(lst):
     "Returns unique elements from the SORTED list."
-    if len(lst)==0:
-        return []
-    x0 = lst[0]
-    rlist = [x0]
-    for x in lst[1:]:
-        if x!=x0:
-            rlist.append(x)
-            x0=x
-    return rlist
-
+    return [ x for x,_ in grp(lst) ]
 
 def irad(x):
     "Integer radical of x, i.e. the product of the all distinct prime factors of x"
-    return prod(uniq(pfac(x)))
+    return prod(uniq(pfaci(x)))
 
 def ispal(x, p=10):
-    "Is the number palindrom"
+    "Is the number a palindrom"
     if x<0: raise ValueError("Can be applied only to positive numbers")
     powten = 1
     while True:
