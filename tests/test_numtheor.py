@@ -351,7 +351,19 @@ class TestPrimes(unittest.TestCase):
         ae( nt.pfac(2**16), [2]*16 )
         ae( nt.pfac(17**3), [17]*3 )
         ae( nt.pfac(6), [2,3])
-
+ 
+    def test_pfac_table(self):
+        ae = self.assertListEqual
+        table = nt.primes( 100 )
+        
+        ae( list(nt.pfac_table(1, table)), [] )
+        ae( list(nt.pfac_table(2, table)), [2] )
+        ae( list(nt.pfac_table(3, table)), [3] )
+        ae( list(nt.pfac_table( 997, table )), [997] )
+        ae( list(nt.pfac_table(2**16, table)), [2]*16 )
+        ae( list(nt.pfac_table(17**3, table)), [17]*3 )
+        ae( list(nt.pfac_table(6, table)), [2,3])
+       
     def test_phi(self):
         ae = self.assertEqual
         def phi_naive(x):

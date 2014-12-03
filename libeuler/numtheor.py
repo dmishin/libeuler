@@ -61,8 +61,23 @@ def pfaci(x):
         while x%p==0:
             x = x//p
             yield p
-
-
+            
+def pfac_table(x, table):
+    """Use primes table to factor the integer.
+    Table must be sorted.
+    Generates sequence of the prime factors in increasing order;
+    Result will conicide with pfaci, if the biggest number in the table is bigger than x^2
+    """
+    pbiggest = table[-1]
+    for p in table:
+        while x % p == 0:
+            x //= p
+            yield p
+        if p*p > x:
+            break
+    if x > 1:
+        yield x
+                
 def grp(l):
     "groups list"
     v=None
