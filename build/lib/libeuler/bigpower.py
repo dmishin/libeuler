@@ -71,7 +71,7 @@ class Pow( PowerTower ):
                 #   then powering will not bring us to the periodic part.
                 if not self.p.greater_than( mki / kni ): #true division here!
                     #direct calculation, p is small
-                    ki_pow = pow_mod( 
+                    ki_pow = pow_mod( )
             modfac = grp(pfac(modulus))
 
 

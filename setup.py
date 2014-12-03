@@ -11,7 +11,6 @@ setup(
     long_description=long_desc,
     url='https://github.com/dmishin/libeuler',
     author="Dmitry Shintyakov",
-    author_email="shintyakov@gmail.com",
-    package_dir={'': "py3"}
+    author_email="shintyakov@gmail.com"
 )
 
