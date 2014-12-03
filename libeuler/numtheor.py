@@ -9,7 +9,7 @@ def isprime(x):
         return True
     if x%2==0:
         return False
-    for p in range(3,int(sqrti(x))+1,2):
+    for p in range(3,sqrti(x)+1,2):
         if x%p==0:
             return False
     return True
@@ -23,6 +23,24 @@ def primes_gen():
             yield p
         p+=2
 
+def primes_gen_table():
+    """Infinite sequence of primes. 
+    Uses table of primes to improve performance for large numbers"""
+    ps = [2,3,5,7,11,13,17,19,23]
+    yield from ps
+    
+    x = ps[-1]
+    while True:
+        x += 2
+        for d in ps:
+            if d*d > x:
+                #it's prime!
+                yield x
+                ps.append(x)
+                break
+            if x % d == 0:
+                break #not a prime
+        
 def primes(n):
     "Table of prime numbers below n. Uses seive."
     seive=[True]*n

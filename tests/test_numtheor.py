@@ -327,6 +327,12 @@ class TestPrimes(unittest.TestCase):
         for p1, p2 in zip(prs, nt.primes_gen()):
             self.assertEqual(p1, p2)
 
+    def test_primes_gen_table(self):
+
+        for i, (p1, p2) in enumerate(zip(nt.primes_gen(),
+                                         nt.primes_gen_table())):
+            if i == 100: break
+            self.assertEqual(p1, p2)
 
     def test_primes(self):
         """Test seive"""
