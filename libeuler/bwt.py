@@ -43,7 +43,7 @@ def qsort( items, less ):
     quicksort( items, 0, len(items)-1, less )
 
     
-def quicksort(A, i, k, less=lambda x,y:x<y):
+def quicksort(A, i, k, less):
     """Code, copied and adapted from wikipedia"""
     if i < k:
         p = partition(A, i, k, less)
