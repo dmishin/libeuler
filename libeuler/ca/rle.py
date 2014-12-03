@@ -10,6 +10,11 @@ def parse(rle_string):
         if "0" <= c and c <= "9":
             curCount = curCount * 10 + int(c)
         else:
+            if c == '!':
+                if curCount == 0:
+                    return
+                else:
+                    raise ValueError("Unexpected end of pattern")
             count = max(curCount, 1)
             curCount = 0
             if c == "b":
