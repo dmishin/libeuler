@@ -533,3 +533,55 @@ def binomial(n,k):
         c //= i+1 #must be zero remainder
     return c
     
+def arder(n):
+    """Arithmetic derivative
+    http://oeis.org/A003415
+    
+    Values:  	0, 0, 1, 1, 4, 1, 5, 1, 12, 6, 7, 1, 16, 1, 9, 8, 32, 1, 21, 1, 24, 10, 13, 1, 44, 10, 15, 27, 32, 1, 31, 1, 80, 14, 19, 12, 60, 1, 21, 16, 68, 1, 41, 1, 48, 39, 25, 1, 112, 14, 45, 20, 56, 1, 81, 16, 92, 22, 31, 1, 92, 1, 33, 51, 192, 18, 61, 1, 72, 26, 59, 1, 156, 1, 39, 55, 80, 18, 71
+    """
+    if n < 0: raise ValueError("n is negative")
+    if n == 1: return 0
+    return sum( n//pi*ei for (pi, ei) in grp(pfaci(n)) )
+        
+
+def polygonal(p,n):
+    """Polygonal number"""
+    return n*((p-2)*n-p+4)//2
+    # ((p-2)*n**2 - (p-4)*n ) // 2
+
+def invpolygonal(p,x):
+    """inverse polygotnal number. Returns number index from it value"""
+    # x = ((p-2)*n**2 - (p-4)*n ) // 2
+    # (p-2)*n**2 - (p-4)*n - 2x = 0
+    # D = (p-4)**2 +8*(p-2)*x
+    D = (p-4)**2 +8*(p-2)*x    
+    # n = ( (p-4) + sqrt(D) ) / (2(p-2))
+    return ((p-4) + sqrti(D) ) // (2*(p-2))
+
+def zip_with_previous(seq):
+    """Generates sequence of consequent element pairs.
+    Original sequence may be generator
+    Example:
+    [1,2,3] -> [(1,2),(2,3)]
+    For 1 element and 2 element sequences, yields empty sequence.
+    """
+    iseq = iter(seq)
+    try:
+        prev = next(iseq)
+        while True:
+            x = next(iseq)
+            yield (prev, x)
+            prev = x
+    except StopIteration:
+        pass
+
+def has_repetitions(seq):
+    """True, if the sequence has repe ing elements.
+    Sequence elements should not be None"""
+    for a, b in zip_with_previous(seq):
+        if a == b:
+            return True
+    return False    
+
+def squarefree(x):
+    return not has_repetitions(pfaci(x))

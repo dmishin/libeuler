@@ -1,6 +1,35 @@
 import libeuler.numtheor as nt
 import itertools
 import unittest
+
+class TestPolygonal(unittest.TestCase):
+    def test_polygonal(self):
+        def polylist(p, n): 
+            return [nt.polygonal(p,i) 
+                    for i in range(1, n+1) ]
+             
+        self.assertEqual( polylist(3, 5),
+                          [1, 3, 6, 10, 15] )
+        self.assertEqual( polylist(4, 5),
+                          [1, 4, 9, 16, 25] )
+
+        self.assertEqual( polylist(5, 5), #,n=n(3n−1)/2
+                          [1, 5, 12, 22, 35] )
+        self.assertEqual( polylist(6, 5), #,n=n(2n−1)
+                          [1, 6, 15, 28, 45] )
+        self.assertEqual( polylist(7, 5), #,n=n(5n−3)/2
+                          [1, 7, 18, 34, 55] )
+        self.assertEqual( polylist(8, 5), #,n=n(3n−2)
+                          [1, 8, 21, 40, 65] )
+
+        def test_invpolygonal(self):
+            for p in range(3, 10):
+                for n in range(1, 10):
+                    pn = polygonal(p,n)
+                    n1 = ipolygonal(p, pn)
+                    self.assertEqual( n1, n, 
+                                      "invpolygonal({p},polygonal({p}, {n})) = {n1} != {n}".format(p=p, n=n,n1=n1))
+
 class TestRoots(unittest.TestCase):
     def test_sqrti(self):
         eq = self.assertEqual
@@ -76,7 +105,12 @@ class TestLists(unittest.TestCase):
         eq( nt.findfirst(lst, lambda x: x==9), 9)
         eq( nt.findfirst(lst, lambda x: x>5), 6)
         eq( nt.findfirst(lst, lambda x: x>100), None)
-
+    def test_zip_with_previous(self):
+        lzipp = lambda s: list(nt.zip_with_previous(s))
+        self.assertListEqual( lzipp([1,2,3]), [(1,2),(2,3)] )
+        self.assertListEqual( lzipp([1,2]), [(1,2)] )
+        self.assertListEqual( lzipp([1]), [] )
+        self.assertListEqual( lzipp([]), [] )
 class TestFib(unittest.TestCase):
     def test_fibonacci(self):
         eq = self.assertEqual
@@ -304,9 +338,16 @@ class TestDigits(unittest.TestCase):
 class TestPrimes(unittest.TestCase):
     def setUp(self):
         pass
-    
-    def test_is_prime(self):
-        
+
+    def test_squarefree(self):
+        squarefrees = [2,3,5,6,7,10,11,13,14,15,17,19,21]
+        nonsqfrees =  [4,8,9,12,16,18,20,24,25,27,28]
+        for x in squarefrees:
+            self.assertTrue( nt.squarefree(x), "%d must be squarefree"%(x) )
+        for x in nonsqfrees:
+            self.assertFalse( nt.squarefree(x), "%d must not be squarefree"%(x))
+
+    def test_is_prime(self):        
         eq = self.assertEqual
         et = self.assertTrue
 
@@ -391,6 +432,14 @@ class TestPrimes(unittest.TestCase):
         for i, ai in enumerate(expected):
             ai_c = a8683(i+1)
             self.assertEqual( ai, ai_c, "For mu(%d), expected %d, but got %d"%(i+1, ai, ai_c) )
+    def test_arder(self):
+        expected = [0, 0, 1, 1, 4, 1, 5, 1, 12, 6, 7, 1, 16, 1, 9, 8, 32, 1, 21, 1, 24, 10, 13, 1, 44, 10, 15, 27, 32, 1, 31, 1, 80, 14, 19, 12, 60, 1, 21, 16, 68, 1, 41, 1, 48, 39, 25, 1, 112, 14, 45, 20, 56, 1, 81, 16, 92, 22, 31, 1, 92, 1, 33, 51, 192, 18, 61, 1, 72, 26, 59, 1, 156, 1, 39, 55, 80, 18, 71]
+
+        a003415 = nt.arder
+        for i, ai in enumerate(expected):
+            ai_c = a003415(i)
+            self.assertEqual( ai, ai_c, "For arithmetic derivative %d': expeced %d, but gut %d"%(i, ai, ai_c))
+
 
 class TestBinomial(unittest.TestCase):
     def test_simple(self):
