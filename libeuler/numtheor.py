@@ -51,7 +51,7 @@ def primes(n):
     for i in range(n):
         if seive[i]:
             strikeout(i)
-    return [p for p in range(n) if seive[p]]
+    return [ p for p, isp in enumerate(seive) if isp ]
 
 
 
